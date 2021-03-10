@@ -6,9 +6,11 @@
 package mx.unam.aragon.fes.gui;
 
 import java.util.ArrayList;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import mx.unam.aragon.fes.Direccion;
 import mx.unam.aragon.fes.Empleado;
+import mx.unam.aragon.fes.persistencia.ArchivoEmpleado;
 
 
 
@@ -302,6 +304,11 @@ public class AltaEmpleado extends javax.swing.JFrame {
         jTabbedPane1.addTab("Empresariales", jPanel2);
 
         jButton1.setText("Guardar");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
 
         jButton2.setText("Cargar");
 
@@ -351,7 +358,7 @@ public class AltaEmpleado extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 453, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2)
@@ -410,6 +417,21 @@ public class AltaEmpleado extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_jButton6MouseClicked
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        // TODO add your handling code here:
+        ArchivoEmpleado persistencia = new ArchivoEmpleado();
+        JFileChooser jfc = new JFileChooser();
+        jfc.showSaveDialog(this);
+        String archivo = jfc.getSelectedFile().getAbsolutePath();
+        System.out.println("ruta sleccionada es:" + archivo);
+        persistencia.setArchivo(archivo);
+        try {
+            persistencia.guardarEmpleados(lista);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jButton1MouseClicked
 
      
     private void limpiarFormulario(){
